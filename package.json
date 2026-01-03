@@ -9,10 +9,10 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "svelte": "node index.js svelte -c -o svelte-docs --combined-name svelte-documentation.pdf",
-    "kit": "node index.js sveltekit -c -o sveltekit-docs --combined-name sveltekit-documentation.pdf",
-    "svelte:core": "node index.js svelte -c -o svelte-core-docs --combined-name svelte-core-documentation.pdf --no-legacy --no-v4 --no-migration",
-    "kit:core": "node index.js sveltekit -c -o sveltekit-core-docs --combined-name sveltekit-core-documentation.pdf --no-migration"
+    "svelte": "node extract-links.js && node index.js svelte -c -o svelte-docs --combined-name svelte-documentation.pdf",
+    "kit": "node extract-links.js && node index.js sveltekit -c -o sveltekit-docs --combined-name sveltekit-documentation.pdf",
+    "svelte:core": "node extract-links.js && node index.js svelte -c -o svelte-core-docs --combined-name svelte-core-documentation.pdf --no-legacy --no-v4 --no-migration",
+    "kit:core": "node extract-links.js && node index.js sveltekit -c -o sveltekit-core-docs --combined-name sveltekit-core-documentation.pdf --no-migration"
   },
   "keywords": [
     "pdf",

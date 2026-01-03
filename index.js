@@ -257,11 +257,14 @@ program
     'Name for the combined PDF file',
     'svelte-documentation.pdf'
   )
-  .option('--no-legacy', 'Ignore links containing "legacy" in their URL', false)
-  .option('--no-v4', 'Ignore v4-migration-guide', false)
-  .option('--no-migration', 'Ignore migration guides', false)
+  .option('--no-legacy', 'Ignore links containing "legacy" in their URL')
+  .option('--no-v4', 'Ignore v4-migration-guide')
+  .option('--no-migration', 'Ignore migration guides')
   .action(async options => {
     try {
+      // Clear the require cache to ensure fresh data
+      delete require.cache[require.resolve('./svelte-links')]
+
       // Load the svelte links array
       let svelteLinks
       try {
@@ -277,7 +280,8 @@ program
       }
 
       // Filter links based on options
-      if (options.noLegacy) {
+      // Note: --no-legacy sets options.legacy to false, otherwise it's true
+      if (options.legacy === false) {
         const originalCount = svelteLinks.length
         svelteLinks = svelteLinks.filter(
           link => !link.toLowerCase().includes('legacy')
@@ -287,7 +291,7 @@ program
         )
       }
 
-      if (options.noV4) {
+      if (options.v4 === false) {
         const originalCount = svelteLinks.length
         svelteLinks = svelteLinks.filter(
           link => !link.toLowerCase().includes('v4-migration-guide')
@@ -299,7 +303,7 @@ program
         )
       }
 
-      if (options.noMigration) {
+      if (options.migration === false) {
         const originalCount = svelteLinks.length
         svelteLinks = svelteLinks.filter(
           link => !link.toLowerCase().includes('migration')
@@ -404,7 +408,7 @@ program
     'Name for the combined PDF file',
     'sveltekit-documentation.pdf'
   )
-  .option('--no-migration', 'Ignore migration guides', false)
+  .option('--no-migration', 'Ignore migration guides')
   .action(async options => {
     try {
       // Load the SvelteKit links array
@@ -422,7 +426,7 @@ program
       }
 
       // Filter links based on options
-      if (options.noMigration) {
+      if (options.migration === false) {
         const originalCount = svelteKitLinks.length
         svelteKitLinks = svelteKitLinks.filter(
           link => !link.toLowerCase().includes('migrat')
@@ -614,9 +618,9 @@ program
     'Extract links and generate both Svelte and SvelteKit documentation in one step'
   )
   .option('-c, --combine', 'Create combined PDFs of all pages', true)
-  .option('--no-legacy', 'Ignore links containing "legacy" in their URL', false)
-  .option('--no-v4', 'Ignore v4-migration-guide', false)
-  .option('--no-migration', 'Ignore SvelteKit migration guides', false)
+  .option('--no-legacy', 'Ignore links containing "legacy" in their URL')
+  .option('--no-v4', 'Ignore v4-migration-guide')
+  .option('--no-migration', 'Ignore SvelteKit migration guides')
   .option(
     '--svelte-dir <directory>',
     'Output directory for Svelte PDFs',
@@ -680,7 +684,7 @@ program
       }
 
       // Filter links based on options
-      if (options.noLegacy) {
+      if (options.legacy === false) {
         const originalCount = svelteLinks.length
         svelteLinks = svelteLinks.filter(
           link => !link.toLowerCase().includes('legacy')
@@ -690,7 +694,7 @@ program
         )
       }
 
-      if (options.noV4) {
+      if (options.v4 === false) {
         const originalCount = svelteLinks.length
         svelteLinks = svelteLinks.filter(
           link => !link.toLowerCase().includes('v4-migration-guide')
@@ -702,7 +706,7 @@ program
         )
       }
 
-      if (options.noMigration) {
+      if (options.migration === false) {
         const originalCount = svelteLinks.length
         svelteLinks = svelteLinks.filter(
           link => !link.toLowerCase().includes('migration')
@@ -803,7 +807,7 @@ program
       }
 
       // Filter links based on options
-      if (options.noMigration) {
+      if (options.migration === false) {
         const originalCount = svelteKitLinks.length
         svelteKitLinks = svelteKitLinks.filter(
           link => !link.toLowerCase().includes('migrat')

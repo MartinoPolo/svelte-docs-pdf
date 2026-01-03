@@ -1,6 +1,5 @@
 /**
  * List of Svelte documentation links
- * (excluding links containing "legacy" in their name)
  */
 const svelteDocLinks = [
   "https://svelte.dev/docs/svelte/overview",
@@ -63,6 +62,7 @@ const svelteDocLinks = [
   "https://svelte.dev/docs/svelte/svelte-compiler",
   "https://svelte.dev/docs/svelte/svelte-easing",
   "https://svelte.dev/docs/svelte/svelte-events",
+  "https://svelte.dev/docs/svelte/svelte-legacy",
   "https://svelte.dev/docs/svelte/svelte-motion",
   "https://svelte.dev/docs/svelte/svelte-reactivity-window",
   "https://svelte.dev/docs/svelte/svelte-reactivity",
@@ -72,7 +72,19 @@ const svelteDocLinks = [
   "https://svelte.dev/docs/svelte/compiler-errors",
   "https://svelte.dev/docs/svelte/compiler-warnings",
   "https://svelte.dev/docs/svelte/runtime-errors",
-  "https://svelte.dev/docs/svelte/runtime-warnings"
+  "https://svelte.dev/docs/svelte/runtime-warnings",
+  "https://svelte.dev/docs/svelte/legacy-overview",
+  "https://svelte.dev/docs/svelte/legacy-let",
+  "https://svelte.dev/docs/svelte/legacy-reactive-assignments",
+  "https://svelte.dev/docs/svelte/legacy-export-let",
+  "https://svelte.dev/docs/svelte/legacy-$$props-and-$$restProps",
+  "https://svelte.dev/docs/svelte/legacy-on",
+  "https://svelte.dev/docs/svelte/legacy-slots",
+  "https://svelte.dev/docs/svelte/legacy-$$slots",
+  "https://svelte.dev/docs/svelte/legacy-svelte-fragment",
+  "https://svelte.dev/docs/svelte/legacy-svelte-component",
+  "https://svelte.dev/docs/svelte/legacy-svelte-self",
+  "https://svelte.dev/docs/svelte/legacy-component-api"
 ];
 
 // Export the links array
@@ -80,7 +92,7 @@ module.exports = svelteDocLinks;
 
 // Log the links if this file is run directly
 if (require.main === module) {
-  console.log('Svelte documentation links (excluding legacy):');
+  console.log('Svelte documentation links:');
   console.log(`Total links: ${svelteDocLinks.length}`);
   svelteDocLinks.forEach(link => console.log(link));
 }

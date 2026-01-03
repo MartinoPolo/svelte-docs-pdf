@@ -1,6 +1,5 @@
 /**
  * List of SvelteKit documentation links
- * (excluding links containing "legacy" in their name)
  */
 const svelteKitDocLinks = [
   "https://svelte.dev/docs/kit/introduction",
@@ -77,7 +76,7 @@ module.exports = svelteKitDocLinks;
 
 // Log the links if this file is run directly
 if (require.main === module) {
-  console.log('SvelteKit documentation links (excluding legacy):');
+  console.log('SvelteKit documentation links:');
   console.log(`Total links: ${svelteKitDocLinks.length}`);
   svelteKitDocLinks.forEach(link => console.log(link));
 }
