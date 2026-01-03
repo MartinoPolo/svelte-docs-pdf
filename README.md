@@ -1,13 +1,6 @@
 # Svelte Documentation PDF Generator
 
-A specialized tool for converting Svelte and SvelteKit documentation into book-friendly PDF format. The tool extracts clean, readable content from the documentation websites and generates both individual page PDFs and combined comprehensive manuals.
-
-## Primary Features
-
-- **Svelte & SvelteKit Documentation**: Generate complete PDF documentation for both Svelte and SvelteKit
-- **Book-Friendly Format**: Clean output with proper headers, formatting and styling
-- **Combined PDF Manuals**: Create comprehensive single-file references with statistics
-- **Customizable Filters**: Exclude legacy content or migration guides as needed
+Convert Svelte and SvelteKit documentation into book-friendly PDF format with clean, readable content and combined manuals.
 
 ## Installation
 
@@ -15,25 +8,23 @@ A specialized tool for converting Svelte and SvelteKit documentation into book-f
 npm install
 ```
 
-## Documentation Generation
-
-### Quick personal usage notes
+## Quick personal usage notes
 
 - Generate pdfs:
 
 ```bash
-npm run svelte          // Svelte docs
-npm run kit             // SvelteKit docs
-npm run svelte:core     // Svelte docs without legacy, migrations
-npm run kit:core        // SvelteKit docs without migrations
+npm run svelte:core     # Svelte docs (no legacy/migrations)
+npm run kit:core        # SvelteKit docs (no migrations)
+npm run svelte          # Full Svelte docs
+npm run kit             # Full SvelteKit docs
 ```
 
-#### Page numbers
+### Page numbers
 
 - Can't easily add page numbers to combined PDFs due to Puppeteer limitations.
 - Using https://tools.pdf24.org/en/add-page-numbers-to-pdf after generation
 
-#### Print notes
+### Print notes
 
 - Current config uses narrow margins. Pdfs are suitable for printing in booklet format
 - Printing A5 booklets on A4 paper via Acrobat reader (free)
@@ -42,234 +33,94 @@ npm run kit:core        // SvelteKit docs without migrations
 - **Don't forget to switch to A4 paper size in Acrobat print dialog!**
 - Acrobat reader adds 2.5cm margins to each side automatically. There's no way to add margins to the A5 page, only the combined A4 sheet.
 
-### Quick Sample Generation (Recommended for First-Time Users)
+## CLI Commands
 
-Generate a small sample of 2 representative Svelte documentation pages to test the tool:
-
-```bash
-node index.js sample
-```
-
-This creates PDFs for:
-
-- **svelte-files** - Component structure and organization
-- **$state** - Runes and reactivity
-
-Options:
-
-- `-c, --combine`: Create a combined PDF of sample pages
-- `-o, --output-dir <directory>`: Custom output directory (default: 'sample-docs')
-- `--combined-name <filename>`: Custom name for the combined PDF (default: 'svelte-sample.pdf')
-
-Example with combined PDF:
+### Sample Generation
 
 ```bash
 node index.js sample -c
 ```
 
-### One-Step Documentation Generation
+Generates 2 sample pages (svelte-files, $state) for testing.
 
-Generate both Svelte and SvelteKit documentation with a single command:
+**Options:**
 
-```bash
-node index.js docs
-```
+- `-c, --combine`: Create combined PDF
+- `-o, --output-dir <dir>`: Output directory (default: 'sample-docs')
+- `--combined-name <file>`: Combined PDF name (default: 'svelte-sample.pdf')
 
-This command will:
-
-1. Extract the latest documentation links from the Svelte websites
-2. Generate individual PDFs for all Svelte documentation pages
-3. Generate individual PDFs for all SvelteKit documentation pages
-4. Create combined PDFs for both documentation sets
-
-Options:
-
-- `-c, --combine`: Create combined PDFs (default: true)
-- `--no-extract`: Skip link extraction step and use existing link files
-- `--no-legacy`: Exclude Svelte legacy content
-- `--no-v4`: Exclude Svelte v4 migration guide
-- `--no-migration`: Exclude SvelteKit migration guides
-- `--svelte-dir <directory>`: Custom output directory for Svelte docs (default: 'svelte-docs')
-- `--sveltekit-dir <directory>`: Custom output directory for SvelteKit docs (default: 'sveltekit-docs')
-- `--svelte-name <filename>`: Custom name for the Svelte combined PDF (default: 'svelte-documentation.pdf')
-- `--sveltekit-name <filename>`: Custom name for the SvelteKit combined PDF (default: 'sveltekit-documentation.pdf')
-
-### Generating Svelte Documentation
-
-Generate the complete Svelte documentation as a combined PDF:
+### Svelte Documentation
 
 ```bash
 node index.js svelte -c
 ```
 
-Options:
+**Options:**
 
-- `-c, --combine`: Create a combined PDF of all pages (recommended)
-- `-o, --output-dir <directory>`: Custom output directory (default: 'svelte-docs')
-- `--combined-name <filename>`: Custom name for the combined PDF (default: 'svelte-documentation.pdf')
+- `-c, --combine`: Create combined PDF
+- `-o, --output-dir <dir>`: Output directory (default: 'svelte-docs')
+- `--combined-name <file>`: Combined PDF name (default: 'svelte-documentation.pdf')
 - `--no-legacy`: Exclude legacy content
 - `--no-v4`: Exclude v4 migration guide
-- `--no-migration`: Exclude migration guides
+- `--no-migration`: Exclude all migration guides
 
-### Generating SvelteKit Documentation
-
-Generate the complete SvelteKit documentation as a combined PDF:
+### SvelteKit Documentation
 
 ```bash
 node index.js sveltekit -c
 ```
 
-Options:
+**Options:**
 
-- `-c, --combine`: Create a combined PDF of all pages (recommended)
-- `-o, --output-dir <directory>`: Custom output directory (default: 'sveltekit-docs')
-- `--combined-name <filename>`: Custom name for the combined PDF (default: 'sveltekit-documentation.pdf')
+- `-c, --combine`: Create combined PDF
+- `-o, --output-dir <dir>`: Output directory (default: 'sveltekit-docs')
+- `--combined-name <file>`: Combined PDF name (default: 'sveltekit-documentation.pdf')
 - `--no-migration`: Exclude migration guides
 
-### Refreshing Documentation Links
+### Both Docs (One Command)
 
-To update the links used for documentation generation:
+```bash
+node index.js docs
+```
+
+Extracts links and generates both Svelte and SvelteKit documentation.
+
+**Options:**
+
+- `-c, --combine`: Create combined PDFs (default: true)
+- `--no-extract`: Skip link extraction, use existing files
+- `--no-legacy`: Exclude Svelte legacy content
+- `--no-v4`: Exclude Svelte v4 migration
+- `--no-migration`: Exclude SvelteKit migrations
+- `--svelte-dir <dir>`: Svelte output directory (default: 'svelte-docs')
+- `--sveltekit-dir <dir>`: SvelteKit output directory (default: 'sveltekit-docs')
+- `--svelte-name <file>`: Svelte PDF name (default: 'svelte-documentation.pdf')
+- `--sveltekit-name <file>`: SvelteKit PDF name (default: 'sveltekit-documentation.pdf')
+
+### Extract Links
 
 ```bash
 node extract-links.js
 ```
 
-This will:
+Extracts documentation links from Svelte websites to `svelte-links.js` and `sveltekit-links.js`.
 
-- Connect to the Svelte and SvelteKit documentation websites
-- Extract all current documentation page links (including legacy and migration guides)
-- Save them to `svelte-links.js` and `sveltekit-links.js`
+### General Conversion
 
-**Note:** Link extraction retrieves all documentation links. Use the filtering options (`--no-legacy`, `--no-v4`, `--no-migration`) when generating PDFs to exclude specific content types.
-
-## Usage Examples
-
-1. Generate a quick sample for testing (recommended for first use):
-
-   ```bash
-   node index.js sample -c
-   ```
-
-2. Generate complete Svelte ecosystem documentation:
-
-   ```bash
-   node index.js docs --no-legacy
-   ```
-
-3. Generate modern Svelte documentation only:
-
-   ```bash
-   node index.js svelte -c --no-legacy
-   ```
-
-4. Generate comprehensive SvelteKit guide:
-
-   ```bash
-   node index.js sveltekit -c --combined-name sveltekit-guide.pdf
-   ```
-
-5. Generate both sets with different output directories:
-
-   ```bash
-   node index.js docs --svelte-dir svelte --sveltekit-dir kit
-   ```
-
-6. Generate both Svelte and SvelteKit documentation:
-   ```bash
-   node index.js svelte -c
-   node index.js sveltekit -c
-   ```
-
-## PDF Statistics
-
-When creating combined PDFs, the tool provides useful statistics including:
-
-- Total number of pages
-- Size of the combined PDF
-- Files with the most content
+```bash
+node index.js convert <url> -o output.pdf          # Single URL
+node index.js bulk urls.txt -o output-dir -c       # Multiple URLs from file
+node index.js urls <url1> <url2> -o output-dir -c  # Multiple URLs from command
+```
 
 ## Configuration
 
-### PDF Generation Options
+Edit `config.js` to customize PDF generation settings (passed to Puppeteer's `page.pdf()`):
 
-The tool uses Puppeteer for PDF generation, with all configuration options managed through the `config.js` file. These settings control how your PDFs look and behave.
+- `format`: Paper size (A4, Letter, etc.)
+- `landscape`: Orientation (true/false)
+- `scale`: Content scaling (0.9 = 90%)
+- `margin`: Page margins (top, right, bottom, left)
+- `printBackground`: Include background graphics (true/false)
 
-You can customize the following PDF properties:
-
-```javascript
-pdf: {
-  format: 'A4',           // Paper size: A4, Letter, Legal, Tabloid, etc.
-  landscape: false,       // Orientation: false=portrait, true=landscape
-  scale: 0.7,             // Scaling factor (0.7 = 70% of original size)
-  margin: {               // Page margins in cm or inches
-    top: '1cm',
-    right: '1cm',
-    bottom: '1cm',
-    left: '1cm'
-  },
-  printBackground: true,  // Whether to include background graphics/colors
-
-  // Advanced options (commented out by default in config.js)
-  // displayHeaderFooter: true,                // Show header and footer
-  // headerTemplate: '<div>...</div>',         // Custom HTML for header
-  // footerTemplate: '<div>...</div>',         // Custom HTML for footer
-  // pageRanges: '1-5',                        // Specific pages to export
-  // tagged: true,                             // Generate tagged (accessible) PDF
-  // outline: true,                            // Include document outline
-}
-```
-
-These options are passed directly to Puppeteer's `page.pdf()` method. The full documentation for all available options can be found in the [Puppeteer API documentation](https://pptr.dev/api/puppeteer.pdfoptions).
-
-#### Header and Footer Templates
-
-When using `displayHeaderFooter: true`, you can customize the header and footer with HTML templates. These templates can include special classes:
-
-- `pageNumber` - Current page number
-- `totalPages` - Total pages in the document
-- `date` - Current date
-
-Example:
-
-```javascript
-headerTemplate: '<div style="font-size: 10px; text-align: center;">Svelte Documentation</div>',
-footerTemplate: '<div style="font-size: 10px; text-align: center;">Page <span class="pageNumber"></span> of <span class="totalPages"></span></div>'
-```
-
-### Output Options
-
-Control where generated PDFs are saved:
-
-```javascript
-output: {
-  defaultFileName: 'output.pdf',      // Default name for single file output
-  defaultDirectory: 'output'          // Default directory for bulk operations
-}
-```
-
-## Additional Functionality
-
-The tool also supports general webpage-to-PDF conversion:
-
-### Converting Single URLs
-
-```bash
-node index.js convert https://example.com -o output.pdf
-```
-
-### Bulk URL Conversion
-
-```bash
-node index.js bulk urls.txt -o output-directory -c
-```
-
-### Processing Multiple URLs from Command Line
-
-```bash
-node index.js urls https://example.com https://another-example.com -c
-```
-
-## Requirements
-
-- Node.js 14 or higher
-- Internet connection to download web pages
+See [Puppeteer API docs](https://pptr.dev/api/puppeteer.pdfoptions) for all available options.
