@@ -1,0 +1,86 @@
+/**
+ * List of Svelte documentation links
+ * (excluding links containing "legacy" in their name)
+ */
+const svelteDocLinks = [
+  "https://svelte.dev/docs/svelte/overview",
+  "https://svelte.dev/docs/svelte/getting-started",
+  "https://svelte.dev/docs/svelte/svelte-files",
+  "https://svelte.dev/docs/svelte/svelte-js-files",
+  "https://svelte.dev/docs/svelte/what-are-runes",
+  "https://svelte.dev/docs/svelte/$state",
+  "https://svelte.dev/docs/svelte/$derived",
+  "https://svelte.dev/docs/svelte/$effect",
+  "https://svelte.dev/docs/svelte/$props",
+  "https://svelte.dev/docs/svelte/$bindable",
+  "https://svelte.dev/docs/svelte/$inspect",
+  "https://svelte.dev/docs/svelte/$host",
+  "https://svelte.dev/docs/svelte/basic-markup",
+  "https://svelte.dev/docs/svelte/if",
+  "https://svelte.dev/docs/svelte/each",
+  "https://svelte.dev/docs/svelte/key",
+  "https://svelte.dev/docs/svelte/await",
+  "https://svelte.dev/docs/svelte/snippet",
+  "https://svelte.dev/docs/svelte/@render",
+  "https://svelte.dev/docs/svelte/@html",
+  "https://svelte.dev/docs/svelte/@attach",
+  "https://svelte.dev/docs/svelte/@const",
+  "https://svelte.dev/docs/svelte/@debug",
+  "https://svelte.dev/docs/svelte/bind",
+  "https://svelte.dev/docs/svelte/use",
+  "https://svelte.dev/docs/svelte/transition",
+  "https://svelte.dev/docs/svelte/in-and-out",
+  "https://svelte.dev/docs/svelte/animate",
+  "https://svelte.dev/docs/svelte/style",
+  "https://svelte.dev/docs/svelte/class",
+  "https://svelte.dev/docs/svelte/await-expressions",
+  "https://svelte.dev/docs/svelte/scoped-styles",
+  "https://svelte.dev/docs/svelte/global-styles",
+  "https://svelte.dev/docs/svelte/custom-properties",
+  "https://svelte.dev/docs/svelte/nested-style-elements",
+  "https://svelte.dev/docs/svelte/svelte-boundary",
+  "https://svelte.dev/docs/svelte/svelte-window",
+  "https://svelte.dev/docs/svelte/svelte-document",
+  "https://svelte.dev/docs/svelte/svelte-body",
+  "https://svelte.dev/docs/svelte/svelte-head",
+  "https://svelte.dev/docs/svelte/svelte-element",
+  "https://svelte.dev/docs/svelte/svelte-options",
+  "https://svelte.dev/docs/svelte/stores",
+  "https://svelte.dev/docs/svelte/context",
+  "https://svelte.dev/docs/svelte/lifecycle-hooks",
+  "https://svelte.dev/docs/svelte/imperative-component-api",
+  "https://svelte.dev/docs/svelte/hydratable",
+  "https://svelte.dev/docs/svelte/testing",
+  "https://svelte.dev/docs/svelte/typescript",
+  "https://svelte.dev/docs/svelte/custom-elements",
+  "https://svelte.dev/docs/svelte/v4-migration-guide",
+  "https://svelte.dev/docs/svelte/v5-migration-guide",
+  "https://svelte.dev/docs/svelte/faq",
+  "https://svelte.dev/docs/svelte/svelte",
+  "https://svelte.dev/docs/svelte/svelte-action",
+  "https://svelte.dev/docs/svelte/svelte-animate",
+  "https://svelte.dev/docs/svelte/svelte-attachments",
+  "https://svelte.dev/docs/svelte/svelte-compiler",
+  "https://svelte.dev/docs/svelte/svelte-easing",
+  "https://svelte.dev/docs/svelte/svelte-events",
+  "https://svelte.dev/docs/svelte/svelte-motion",
+  "https://svelte.dev/docs/svelte/svelte-reactivity-window",
+  "https://svelte.dev/docs/svelte/svelte-reactivity",
+  "https://svelte.dev/docs/svelte/svelte-server",
+  "https://svelte.dev/docs/svelte/svelte-store",
+  "https://svelte.dev/docs/svelte/svelte-transition",
+  "https://svelte.dev/docs/svelte/compiler-errors",
+  "https://svelte.dev/docs/svelte/compiler-warnings",
+  "https://svelte.dev/docs/svelte/runtime-errors",
+  "https://svelte.dev/docs/svelte/runtime-warnings"
+];
+
+// Export the links array
+module.exports = svelteDocLinks;
+
+// Log the links if this file is run directly
+if (require.main === module) {
+  console.log('Svelte documentation links (excluding legacy):');
+  console.log(`Total links: ${svelteDocLinks.length}`);
+  svelteDocLinks.forEach(link => console.log(link));
+}
