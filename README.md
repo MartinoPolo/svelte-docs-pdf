@@ -17,6 +17,31 @@ npm install
 
 ## Documentation Generation
 
+### Quick personal usage notes
+
+- Generate pdfs:
+
+```bash
+npm run svelte          // Svelte docs
+npm run kit             // SvelteKit docs
+npm run svelte:core     // Svelte docs without legacy, migrations
+npm run kit:core        // SvelteKit docs without migrations
+```
+
+#### Page numbers
+
+- Can't easily add page numbers to combined PDFs due to Puppeteer limitations.
+- Using https://tools.pdf24.org/en/add-page-numbers-to-pdf after generation
+
+#### Print notes
+
+- Current config uses narrow margins. Pdfs are suitable for printing in booklet format
+- Printing A5 booklets on A4 paper via Acrobat reader (free)
+- See PrintSettings.png for recommended settings
+- Select Booklet (brožura)
+- **Don't forget to switch to A4 paper size in Acrobat print dialog!**
+- Acrobat reader adds 2.5cm margins to each side automatically. There's no way to add margins to the A5 page, only the combined A4 sheet.
+
 ### Quick Sample Generation (Recommended for First-Time Users)
 
 Generate a small sample of 2 representative Svelte documentation pages to test the tool:

@@ -21,10 +21,10 @@ module.exports = {
 
     // Page margins in inches or centimeters
     margin: {
-      top: '1.5cm',
-      right: '1.5cm',
-      bottom: '1.5cm',
-      left: '1.5cm'
+      top: '0.5cm',
+      right: '1.2cm',
+      bottom: '0.5cm',
+      left: '0.5cm'
     },
 
     // Whether to print background colors and images in the PDF
