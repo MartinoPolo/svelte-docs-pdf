@@ -1,13 +1,12 @@
 # Dependency directory
 node_modules/
 
-# Generated files
-svelte-links.js
-sveltekit-links.js
-
 # Documentation folders
 svelte-docs/
 sveltekit-docs/
+sample-docs/
+svelte-core-docs/
+sveltekit-core-docs/
 
 # Logs
 npm-debug.log*

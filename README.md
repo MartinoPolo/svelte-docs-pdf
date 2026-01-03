@@ -17,6 +17,31 @@ npm install
 
 ## Documentation Generation
 
+### Quick Sample Generation (Recommended for First-Time Users)
+
+Generate a small sample of 2 representative Svelte documentation pages to test the tool:
+
+```bash
+node index.js sample
+```
+
+This creates PDFs for:
+
+- **svelte-files** - Component structure and organization
+- **$state** - Runes and reactivity
+
+Options:
+
+- `-c, --combine`: Create a combined PDF of sample pages
+- `-o, --output-dir <directory>`: Custom output directory (default: 'sample-docs')
+- `--combined-name <filename>`: Custom name for the combined PDF (default: 'svelte-sample.pdf')
+
+Example with combined PDF:
+
+```bash
+node index.js sample -c
+```
+
 ### One-Step Documentation Generation
 
 Generate both Svelte and SvelteKit documentation with a single command:
@@ -59,6 +84,7 @@ Options:
 - `--combined-name <filename>`: Custom name for the combined PDF (default: 'svelte-documentation.pdf')
 - `--no-legacy`: Exclude legacy content
 - `--no-v4`: Exclude v4 migration guide
+- `--no-migration`: Exclude migration guides
 
 ### Generating SvelteKit Documentation
 
@@ -86,36 +112,44 @@ node extract-links.js
 This will:
 
 - Connect to the Svelte and SvelteKit documentation websites
-- Extract all current documentation page links
+- Extract all current documentation page links (including legacy and migration guides)
 - Save them to `svelte-links.js` and `sveltekit-links.js`
+
+**Note:** Link extraction retrieves all documentation links. Use the filtering options (`--no-legacy`, `--no-v4`, `--no-migration`) when generating PDFs to exclude specific content types.
 
 ## Usage Examples
 
-1. Generate complete Svelte ecosystem documentation (recommended):
+1. Generate a quick sample for testing (recommended for first use):
+
+   ```bash
+   node index.js sample -c
+   ```
+
+2. Generate complete Svelte ecosystem documentation:
 
    ```bash
    node index.js docs --no-legacy
    ```
 
-2. Generate modern Svelte documentation only:
+3. Generate modern Svelte documentation only:
 
    ```bash
    node index.js svelte -c --no-legacy
    ```
 
-3. Generate comprehensive SvelteKit guide:
+4. Generate comprehensive SvelteKit guide:
 
    ```bash
    node index.js sveltekit -c --combined-name sveltekit-guide.pdf
    ```
 
-4. Generate both sets with different output directories:
+5. Generate both sets with different output directories:
 
    ```bash
    node index.js docs --svelte-dir svelte --sveltekit-dir kit
    ```
 
-5. Generate both Svelte and SvelteKit documentation:
+6. Generate both Svelte and SvelteKit documentation:
    ```bash
    node index.js svelte -c
    node index.js sveltekit -c

@@ -259,6 +259,7 @@ program
   )
   .option('--no-legacy', 'Ignore links containing "legacy" in their URL', false)
   .option('--no-v4', 'Ignore v4-migration-guide', false)
+  .option('--no-migration', 'Ignore migration guides', false)
   .action(async options => {
     try {
       // Load the svelte links array
@@ -295,6 +296,18 @@ program
           `Filtered out ${
             originalCount - svelteLinks.length
           } v4-migration-guide links`
+        )
+      }
+
+      if (options.noMigration) {
+        const originalCount = svelteLinks.length
+        svelteLinks = svelteLinks.filter(
+          link => !link.toLowerCase().includes('migration')
+        )
+        console.log(
+          `Filtered out ${
+            originalCount - svelteLinks.length
+          } migration links`
         )
       }
 
@@ -499,6 +512,101 @@ program
     }
   })
 
+// Sample command to generate a few representative pages for testing
+program
+  .command('sample')
+  .description('Generate a sample of Svelte documentation (5 representative pages)')
+  .option(
+    '-o, --output-dir <directory>',
+    'Output directory for PDF files',
+    'sample-docs'
+  )
+  .option('-c, --combine', 'Create a combined PDF of sample pages', false)
+  .option(
+    '--combined-name <filename>',
+    'Name for the combined PDF file',
+    'svelte-sample.pdf'
+  )
+  .action(async options => {
+    try {
+      // Curated sample pages showing various content types
+      const sampleUrls = [
+        'https://svelte.dev/docs/svelte/svelte-files',
+        'https://svelte.dev/docs/svelte/$state',
+      ]
+
+      console.log('\n=== Generating Sample Svelte Documentation ===')
+      console.log(`Sample pages: ${sampleUrls.length}`)
+      console.log('This includes:')
+      console.log('  - svelte-files (component structure)')
+      console.log('  - $state (runes/reactivity)')
+      console.log(
+        'Using hardcoded selectors: parent="#docs-content", child=".text.content"'
+      )
+
+      // Create output directory if it doesn't exist
+      try {
+        await fs.mkdir(options.outputDir, { recursive: true })
+      } catch (err) {
+        if (err.code !== 'EEXIST') {
+          throw err
+        }
+      }
+
+      // Keep track of all generated PDFs
+      const generatedPdfs = []
+
+      // Process each URL
+      for (let i = 0; i < sampleUrls.length; i++) {
+        const url = sampleUrls[i]
+        console.log(`\n[${i + 1}/${sampleUrls.length}] Processing: ${url}`)
+
+        try {
+          const pdfBuffer = await convertWebpageToPdf(url)
+
+          // Extract a filename from the URL
+          const urlPath = new URL(url).pathname
+          const filename = urlPath.split('/').pop() || `page-${i + 1}`
+          const sanitizedFilename = filename.replace(/[^a-z0-9-]/gi, '_')
+          const outputFile = path.join(
+            options.outputDir,
+            `${sanitizedFilename}.pdf`
+          )
+
+          await fs.writeFile(outputFile, pdfBuffer)
+          generatedPdfs.push(outputFile)
+          console.log(`  ✓ Saved to ${outputFile}`)
+        } catch (error) {
+          console.error(`  ✗ Error processing ${url}: ${error.message}`)
+        }
+      }
+
+      console.log(
+        `\n✓ Sample generation complete. Generated ${generatedPdfs.length} PDFs.`
+      )
+
+      // Create combined PDF if requested
+      if (options.combine && generatedPdfs.length > 0) {
+        console.log('\n=== Creating combined sample PDF ===')
+        const combinedPath = path.join(options.outputDir, options.combinedName)
+
+        try {
+          const stats = await mergePDFs(generatedPdfs, combinedPath)
+
+          console.log('\n📚 Combined Sample PDF Statistics:')
+          console.log(`  Total pages: ${stats.totalPages}`)
+          console.log(`  File size: ${stats.fileSize}`)
+          console.log(`  Saved to: ${combinedPath}`)
+        } catch (error) {
+          console.error(`Error creating combined PDF: ${error.message}`)
+        }
+      }
+    } catch (error) {
+      console.error(`Error: ${error.message}`)
+      process.exit(1)
+    }
+  })
+
 // New command to extract links and generate both Svelte and SvelteKit docs in one step
 program
   .command('docs')
@@ -591,6 +699,18 @@ program
           `Filtered out ${
             originalCount - svelteLinks.length
           } v4-migration-guide links`
+        )
+      }
+
+      if (options.noMigration) {
+        const originalCount = svelteLinks.length
+        svelteLinks = svelteLinks.filter(
+          link => !link.toLowerCase().includes('migration')
+        )
+        console.log(
+          `Filtered out ${
+            originalCount - svelteLinks.length
+          } migration links`
         )
       }
 

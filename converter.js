@@ -13,6 +13,15 @@ const config = require('./config')
  * @returns {Promise<Buffer>} - PDF file as buffer
  */
 async function convertWebpageToPdf(url, options = {}) {
+  // ============================================
+  // EASY-TO-CHANGE CONSTANTS FOR PDF STYLING
+  // ============================================
+  const FONT_SIZE = '16px'          // Base font size (was browser default ~16px, now 14px)
+  const HEADER_FONT_SIZE = '35px'   // Header/H1 font size
+  const SECTION_SPACING = '30px'    // Space between sections/headers (try: 10px, 15px, 20px)
+  const PARAGRAPH_SPACING = '10px'  // Space between paragraphs (try: 8px, 10px, 12px)
+  const LINE_HEIGHT = '1.3'         // Line spacing (try: 1.4, 1.5, 1.6)
+
   // Hardcoded selectors for Svelte documentation
   const parentSelector = '#docs-content'
   const childSelector = '.text.content'
@@ -79,7 +88,7 @@ async function convertWebpageToPdf(url, options = {}) {
 
     // Extract content including header and text content
     await page.evaluate(
-      (parentSel, childSel) => {
+      (parentSel, childSel, fontSize, headerFontSize, sectionSpacing, paragraphSpacing, lineHeight) => {
         // Save the parent element
         const parentElement = document.querySelector(parentSel)
 
@@ -136,8 +145,9 @@ async function convertWebpageToPdf(url, options = {}) {
         style.textContent = `
         body {
           margin: 0;
-          padding: 20px;
+          padding: 0;
           font-family: Arial, sans-serif;
+          font-size: ${fontSize};
         }
         img {
           max-width: 100%;
@@ -146,17 +156,59 @@ async function convertWebpageToPdf(url, options = {}) {
         pre, code {
           white-space: pre-wrap;
           overflow-wrap: break-word;
+          font-size: ${fontSize};
         }
-        header, h1 {
-          margin-bottom: 20px;
-          padding-bottom: 10px;
-          border-bottom: 1px solid #eaeaea;
+        code span {
+            font-size: ${fontSize};
+        }
+        h1 {
+            font-size: ${headerFontSize};
+        }
+        h2, h3, h4 {
+          margin-top: 30px!important;
+          margin-bottom: 5px;
+          padding-bottom: 8px;
+          padding-top: 15px!important;
+          border-top: 1px solid #eaeaea;
+        }
+        h2 { font-size: 24px; }
+        h3 { font-size: 22px; }
+        h4 { font-size: 20px; }
+        p {
+          margin-top: ${paragraphSpacing};
+          margin-bottom: ${paragraphSpacing};
+          line-height: ${lineHeight};
+        }
+        li {
+          line-height: ${lineHeight};
+          margin-bottom: 5px;
+        }
+        blockquote.note, blockquote.note:before {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+        @media print {
+          blockquote.note:before {
+            content: "💡";
+            background: none !important;
+            mask: none !important;
+            -webkit-mask: none !important;
+            font-size: 2em;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.5em;
+          }
         }
       `
         document.head.appendChild(style)
       },
       parentSelector,
-      childSelector
+      childSelector,
+      FONT_SIZE,
+      HEADER_FONT_SIZE,
+      SECTION_SPACING,
+      PARAGRAPH_SPACING,
+      LINE_HEIGHT
     )
 
     // Generate PDF buffer
