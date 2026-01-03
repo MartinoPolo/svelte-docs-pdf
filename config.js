@@ -17,14 +17,14 @@ module.exports = {
 
     // Scale of the webpage rendering (1 = 100%, 0.5 = 50%)
     // Useful for fitting more content on a page or making text more readable
-    scale: 0.7,
+    scale: 0.9,
 
     // Page margins in inches or centimeters
     margin: {
-      top: '1cm',
-      right: '1cm',
-      bottom: '1cm',
-      left: '1cm'
+      top: '1.5cm',
+      right: '1.5cm',
+      bottom: '1.5cm',
+      left: '1.5cm'
     },
 
     // Whether to print background colors and images in the PDF
