@@ -102,18 +102,13 @@ async function extractLinksFromPage(browser, url, type) {
     })
   }, type)
 
-  // Filter out links containing "legacy" in their href or text
-  const filteredLinks = links
-    .filter(link => link.href && link.href.startsWith('/docs/'))
-    .filter(link => {
-      return (
-        !link.href.toLowerCase().includes('legacy') &&
-        !link.text.toLowerCase().includes('legacy')
-      )
-    })
+  // Filter to only include documentation links
+  const filteredLinks = links.filter(
+    link => link.href && link.href.startsWith('/docs/')
+  )
 
   console.log(
-    `Found ${links.length} total ${type} links, ${filteredLinks.length} filtered links`
+    `Found ${links.length} total ${type} links, ${filteredLinks.length} documentation links`
   )
 
   // Add base URL to make complete links
@@ -136,7 +131,6 @@ async function saveLinks(links, filename, variableName) {
  * List of ${
    filename.includes('kit') ? 'SvelteKit' : 'Svelte'
  } documentation links
- * (excluding links containing "legacy" in their name)
  */
 const ${variableName} = ${JSON.stringify(links, null, 2)};
 
@@ -147,7 +141,7 @@ module.exports = ${variableName};
 if (require.main === module) {
   console.log('${
     filename.includes('kit') ? 'SvelteKit' : 'Svelte'
-  } documentation links (excluding legacy):');
+  } documentation links:');
   console.log(\`Total links: \${${variableName}.length}\`);
   ${variableName}.forEach(link => console.log(link));
 }`
